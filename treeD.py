@@ -1,21 +1,3 @@
-#!/usr/bin/env python3
-"""
-treeD: Display a folder structure as a tree.
-
-Usage examples:
-    # Display the tree for the current directory:
-    > python treed.py
-
-    # Display the tree for a specific folder:
-    > python treed.py C:\path\to\folder
-
-    # Display the tree while omitting additional directories (in addition to standard omitted directories):
-    > python treed.py -o src migrations
-
-    # Display the tree and copy the output to the clipboard:
-    > python treed.py -c
-"""
-
 import os
 import argparse
 
@@ -60,23 +42,14 @@ def generate_tree(dir_path, prefix="", omit_dirs=set(), lines=None):
     return lines
 
 def copy_to_clipboard(text):
-    """
-    Copies the provided text to the system clipboard using tkinter.
-    
-    Parameters:
-        text (str): The text to copy to the clipboard.
-    """
     try:
-        import tkinter as tk
-        r = tk.Tk()
-        r.withdraw()  # Hide the main window
-        r.clipboard_clear()
-        r.clipboard_append(text)
-        r.update()  # Now it stays on the clipboard after the window is closed
-        r.destroy()
+        import pyperclip
+        pyperclip.copy(text)
         print("\nFolder structure copied to clipboard.")
     except Exception as e:
         print("Error copying to clipboard:", e)
+
+
 
 def main():
     parser = argparse.ArgumentParser(
